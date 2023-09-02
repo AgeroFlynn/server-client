@@ -15,13 +15,16 @@ var (
 
 type client struct {
 	BaseURL string
-	c       *http.Client
+	*http.Client
 }
 
 func NewClient(baseUrl string) *client {
 	c := &http.Client{}
 
-	return &client{BaseURL: baseUrl, c: c}
+	return &client{
+		BaseURL: baseUrl,
+		Client:  c,
+	}
 }
 
 func (c *client) V1MethodPost(dto *RequestDTO) (*ResponseDTO, error) {
@@ -35,7 +38,7 @@ func (c *client) V1MethodPost(dto *RequestDTO) (*ResponseDTO, error) {
 		return nil, fmt.Errorf("failed encode data V1Method from API Server: %v", err)
 	}
 
-	res, err := c.c.Post(c.BaseURL, "application/json", payloadBuf)
+	res, err := c.Post(c.BaseURL, "application/json", payloadBuf)
 	if err != nil {
 		return nil, err
 	}
