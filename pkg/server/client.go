@@ -19,10 +19,10 @@ type client struct {
 	c       *http.Client
 }
 
-func NewClient(url string) *client {
+func NewClient(baseUrl string) *client {
 	c := &http.Client{}
 
-	return &client{BaseURL: url, c: c}
+	return &client{BaseURL: baseUrl, c: c}
 }
 
 func (c *client) V1MethodPost(dto *api.RequestDTO) (*api.ResponseDTO, error) {
