@@ -1,4 +1,4 @@
-package api
+package server
 
 type RequestDTO struct {
 	Number int    `json:"number"`

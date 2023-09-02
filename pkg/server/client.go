@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/AgeroFlynn/server-client/pkg/server/api"
 	"io"
 	"net/http"
 )
@@ -25,7 +24,7 @@ func NewClient(baseUrl string) *client {
 	return &client{BaseURL: baseUrl, c: c}
 }
 
-func (c *client) V1MethodPost(dto *api.RequestDTO) (*api.ResponseDTO, error) {
+func (c *client) V1MethodPost(dto *RequestDTO) (*ResponseDTO, error) {
 	if dto == nil {
 		return nil, emptyRequestError
 	}
@@ -56,7 +55,7 @@ func (c *client) V1MethodPost(dto *api.RequestDTO) (*api.ResponseDTO, error) {
 			Actual status: %d\nBody response: %s`, res.StatusCode, string(data))
 	}
 
-	result := &api.ResponseDTO{}
+	result := &ResponseDTO{}
 
 	if err = json.Unmarshal(data, &result); err != nil {
 		return nil, fmt.Errorf("failed decode response V1Method from API Server: %v", err)

@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/AgeroFlynn/server-client/pkg/server/api"
+	"github.com/AgeroFlynn/server-client/pkg/server"
 	"io"
 	"net/http"
 )
@@ -19,7 +19,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var dto api.RequestDTO
+	var dto server.RequestDTO
 	if err = json.Unmarshal(body, &dto); err != nil {
 		http.Error(w, "Unmarshal error", http.StatusBadRequest)
 		return
@@ -29,7 +29,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 	// do some business logic
 	// ---
 
-	result := api.ResponseDTO{Result: "some result"}
+	result := server.ResponseDTO{Result: "some result"}
 
 	data, err := json.Marshal(&result)
 	if err != nil {
